@@ -1,15 +1,21 @@
 <template>
   <div class="container">
     <todo-header></todo-header>
+    <todo-content></todo-content>
+    <todo-addtask></todo-addtask>
   </div>
 </template>
 
 <script>
-import header from '@/components/header.vue'
+import header from '@/components/header.vue';
+import content from '@/components/content.vue';
+import addTask from '@/components/add-task.vue';
 
 export default {
   components: {
-    'todo-header': header
+    'todo-header': header,
+    'todo-content': content,
+    'todo-addtask': addTask,
   }
 }
 </script>
