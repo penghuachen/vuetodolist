@@ -1,10 +1,14 @@
 <template>
   <div class="add-task">
-    <div class="plus">
+    <div class="plus" @click="addTodoTask">
       <plusIcon />
     </div>
     <div class="input-task">
-      <input type="text" placeholder="Add a to-do">
+      <input type="text" 
+        placeholder="Add a to-do"
+        v-model="todoTask"
+        @keydown.enter="addTodoTask"
+        >
     </div>
   </div>
 </template>
@@ -13,6 +17,31 @@
 import plusIcon from '@/assets/img/plus-icon.svg';
 
 export default {
+  props: {
+    todoList: {
+      type: Array
+    }
+  },
+  data() {
+    return {
+      todoTask: '',
+    }
+  },
+  methods: {
+    idGenerator() {
+      return new Date().getTime();
+    },
+    addTodoTask() {
+      const taskObj = {
+        id: this.idGenerator(), 
+        done: false,
+        edit: false,
+        task: this.todoTask 
+      };
+      this.$emit('addTask', taskObj);
+      this.todoTask = '';
+    }
+  },
   components: {
     plusIcon,
   } 
