@@ -1,7 +1,11 @@
 <template>
   <div class="content">
-    <task-status></task-status>
-    <task-content :todo-list="todoList"></task-content>
+    <task-status />
+    <task-content 
+      :todo-list="todoList"
+      @updateTaskHandler="emitUpdateHandler"
+      
+    />
   </div>
 </template>
 
@@ -14,6 +18,11 @@ export default {
     todoList: {
       type: Array
     }
+  },
+  methods: {
+    emitUpdateHandler(index) {
+      this.$emit('updateTaskHandler', index);
+    },
   },
   components: {
     'task-status': taskStatus,

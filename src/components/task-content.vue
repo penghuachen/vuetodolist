@@ -7,15 +7,17 @@
       >
         <div class="undone"
           v-if="!todo.done"
+          @click="emitUpdateHandler(index)"
           >
         </div>
         <div class="done"
           v-if="todo.done" 
+          @click="emitUpdateHandler(index)"
           >
           <checkIcon />
         </div>
         <div class="task-content" 
-          :class="{ 'line-throught': todo.done }">
+          :class="{ 'line-through': todo.done }">
           <p v-if="!todo.edit">{{ todo.task }}</p>
           <input 
             class="editTask"
@@ -41,7 +43,11 @@ export default {
       type: Array
     }
   }, 
-  methods: {},
+  methods: {
+    emitUpdateHandler(index) {
+      this.$emit('updateTaskHandler', index);
+    },
+  },
   components: {
     checkIcon,
     deleteIcon
