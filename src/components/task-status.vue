@@ -1,14 +1,39 @@
 <template>
   <div class="task-status">
-    <p class="all-task current">全部</p>
-    <p class="doing-task">進行中</p>
-    <p class="finished-task">已完成</p>
+    <p class="all-task"
+      :class="{ current : statusArea == '全部' }"
+      @click="emitUpdateAreaHandler($event)"
+      >
+      全部
+    </p>
+    <p class="doing-task"
+      :class="{ current : statusArea == '進行中' }"
+      @click="emitUpdateAreaHandler($event)"
+    >
+      進行中
+    </p>
+    <p class="finished-task"
+      :class="{ current : statusArea == '已完成' }"
+      @click="emitUpdateAreaHandler($event)"
+      >
+      已完成
+    </p>
   </div>
 </template>
 
 <script>
 export default {
-  
+  props: {
+    statusArea: {
+      type: String
+    }
+  },
+  methods: {
+    emitUpdateAreaHandler(event) {
+      let currentArea = event.target.textContent.trim();
+      this.$emit('updateStatusAreaHandler', currentArea);
+    }
+  },
 }
 </script>
 

@@ -1,29 +1,35 @@
 <template>
   <div class="task-list">
     <div class="task" 
-      v-for="(todo, index) in todoList" 
+      v-for="(todo, index) in filterList" 
       :key="index"
       :id="todo.id"
       >
         <div class="undone"
           v-if="!todo.done"
-          @click="emitUpdateHandler(index)"
+          @click="emitUpdateHandler(todo)"
           >
         </div>
         <div class="done"
           v-if="todo.done" 
-          @click="emitUpdateHandler(index)"
+          @click="emitUpdateHandler(todo)"
           >
           <checkIcon />
         </div>
         <div class="task-content" 
           :class="{ 'line-through': todo.done }">
-          <p v-if="!todo.edit">{{ todo.task }}</p>
+          <p 
+            v-if="!todo.edit"
+            @dblclick="emitEditHandler(index , todo.task)"
+            >{{ todo.task }}</p>
           <input 
             class="editTask"
             type="text"
             v-if="todo.edit"
             :value="todo.task"
+            @input="value = $event.target.value"
+            @blur="!useKeyboardEvent && emitEditHandler(index, value)"
+            @keydown.enter="emitEditHandler(index, value)"
           >
         </div>
         <div class="delete-icon">
@@ -39,16 +45,26 @@ import deleteIcon from '@/assets/img/delete-icon.svg';
 
 export default {
   props: {
-    todoList: {
+    filterList: {
       type: Array
     }
   }, 
+  data() {
+    return {
+      value: '',
+      useKeyboardEvent: true
+    }
+  },
   methods: {
-    emitUpdateHandler(index) {
-      this.$emit('updateTaskHandler', index);
+    emitUpdateHandler(todo) {
+      this.$emit('updateTaskHandler', todo);
     },
     emitDeleteHandler(index) {
       this.$emit('deleteTaskHandler', index);
+    },
+    emitEditHandler(index, newTaskContent) {
+      this.$emit('editTaskHandler', index, newTaskContent);
+      this.useKeyboardEvent = !this.useKeyboardEvent;
     } 
   },
   components: {
