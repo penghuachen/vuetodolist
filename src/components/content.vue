@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <task-status></task-status>
-    <task-content></task-content>
+    <task-content :todo-list="todoList"></task-content>
   </div>
 </template>
 
@@ -10,6 +10,11 @@ import taskStatus from '@/components/task-status.vue';
 import taskContent from '@/components/task-content.vue';
 
 export default {
+  props: {
+    todoList: {
+      type: Array
+    }
+  },
   components: {
     'task-status': taskStatus,
     'task-content': taskContent
