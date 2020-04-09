@@ -27,7 +27,7 @@
           >
         </div>
         <div class="delete-icon">
-          <deleteIcon />
+          <deleteIcon @click="emitDeleteHandler(index)"/>
         </div> 
     </div>
   </div>
@@ -47,6 +47,9 @@ export default {
     emitUpdateHandler(index) {
       this.$emit('updateTaskHandler', index);
     },
+    emitDeleteHandler(index) {
+      this.$emit('deleteTaskHandler', index);
+    } 
   },
   components: {
     checkIcon,

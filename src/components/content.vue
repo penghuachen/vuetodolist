@@ -4,7 +4,7 @@
     <task-content 
       :todo-list="todoList"
       @updateTaskHandler="emitUpdateHandler"
-      
+      @deleteTaskHandler="emitDeleteHandler"
     />
   </div>
 </template>
@@ -23,6 +23,9 @@ export default {
     emitUpdateHandler(index) {
       this.$emit('updateTaskHandler', index);
     },
+    emitDeleteHandler(index) {
+      this.$emit('deleteTaskHandler', index);
+    } 
   },
   components: {
     'task-status': taskStatus,
