@@ -12,16 +12,16 @@ import refreshIcon from '@/assets/img/refresh-icon.svg'
 
 export default {
   props: {
-    todoList: {
+    filterList: {
       type: Array
     }
   },
   methods: {
     deleteAllTasks() {
-      let deleteCheck = confirm('您確定要刪除全部任務嗎?');
+      const deleteCheck = confirm('您確定要刪除全部任務嗎?');
       if(deleteCheck) {
         alert('刪除全部任務。')
-        return this.$emit('update:todoList', []);
+        return this.$emit('update:filterList', []);
       }
       alert('取消刪除。')
     }
