@@ -1,10 +1,14 @@
 <template>
   <div class="content">
-    <task-status />
+    <task-status 
+      :statusArea="statusArea"
+      @updateStatusAreaHandler="emitUpdateAreaHandler"
+      />
     <task-content 
-      :todo-list="todoList"
+      :filter-list="filterList"
       @updateTaskHandler="emitUpdateHandler"
       @deleteTaskHandler="emitDeleteHandler"
+      @editTaskHandler="emitEditHandler"
     />
   </div>
 </template>
@@ -15,17 +19,26 @@ import taskContent from '@/components/task-content.vue';
 
 export default {
   props: {
-    todoList: {
+    filterList: {
       type: Array
+    },
+    statusArea: {
+      type: String
     }
   },
   methods: {
-    emitUpdateHandler(index) {
-      this.$emit('updateTaskHandler', index);
+    emitUpdateHandler(todo) {
+      this.$emit('updateTaskHandler', todo);
     },
     emitDeleteHandler(index) {
       this.$emit('deleteTaskHandler', index);
-    } 
+    },
+    emitEditHandler(index, newTaskContent) {
+      this.$emit('editTaskHandler', index, newTaskContent);
+    },
+    emitUpdateAreaHandler(area) {
+      this.$emit('updateStatusAreaHandler', area)
+    }
   },
   components: {
     'task-status': taskStatus,
