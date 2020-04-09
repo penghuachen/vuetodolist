@@ -1,9 +1,6 @@
 <template>
   <div class="header">
-    <refreshIcon 
-      class="refresh"
-      @click="deleteAllTasks"
-      />
+    <refreshIcon class="refresh" @click="deleteAllTasks" />
     <p class="date">{{ currentDate }}</p>
   </div>
 </template>
