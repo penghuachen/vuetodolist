@@ -1,6 +1,9 @@
 <template>
   <div class="header">
-    <refreshIcon class="refresh"/>
+    <refreshIcon 
+      class="refresh"
+      @click="deleteAllTasks"
+      />
     <p class="date">{{ currentDate }}</p>
   </div>
 </template>
@@ -11,6 +14,21 @@ import moment from 'moment'
 import refreshIcon from '@/assets/img/refresh-icon.svg'
 
 export default {
+  props: {
+    todoList: {
+      type: Array
+    }
+  },
+  methods: {
+    deleteAllTasks() {
+      let deleteCheck = confirm('您確定要刪除全部任務嗎?');
+      if(deleteCheck) {
+        alert('刪除全部任務。')
+        return this.$emit('update:todoList', []);
+      }
+      alert('取消刪除。')
+    }
+  },
   computed: {
     currentDate() {
       return moment().format('dddd, MMM D'); 
