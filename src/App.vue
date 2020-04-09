@@ -1,8 +1,15 @@
 <template>
   <div id="app">
     <div class="container">
-      <todo-header :todo-list.sync="todoList" />
-      <todo-content :todo-list="todoList" />
+      <todo-header :filter-list.sync="filterTodoList" />
+      <todo-content 
+        :filter-list="filterTodoList" 
+        :statusArea="statusArea"
+        @updateTaskHandler="updateTaskHandler"
+        @deleteTaskHandler="deleteTaskHandler"
+        @editTaskHandler="editTaskHandler"
+        @updateStatusAreaHandler="updateStatusAreaHandler"
+        />
       <todo-addtask @addTask="addTask" /> 
     </div>
   </div>
@@ -16,12 +23,41 @@ import addTask from '@/components/add-task.vue';
 export default {
   data() {
     return {
-    todoList: []
+    todoList: [],
+    statusArea: '全部'
     }
   },
   methods: {
     addTask(taskObj) {
       this.todoList.push(taskObj);
+    },
+    updateTaskHandler(todo) {
+      const isTarget = this.todoList.find(task => task.id = todo.id);
+      if(!isTarget) return;
+
+      todo.done = !todo.done;
+      const index = this.todoList.indexOf(todo);
+      this.todoList.splice(index, 1, todo);
+    },
+    deleteTaskHandler(index) {
+      this.todoList.splice(index, 1);
+    },
+    editTaskHandler(index, newTaskContent) {
+      this.todoList[index].edit = !this.todoList[index].edit;
+      this.todoList[index].task = newTaskContent;
+    },
+    updateStatusAreaHandler(area) {
+      this.statusArea = area;
+    }
+  },
+  computed: {
+    filterTodoList() {
+      const obj = {
+        '全部': this.todoList,
+        '進行中': this.todoList.filter(task => !task.done),
+        '已完成': this.todoList.filter(task => task.done)
+      };
+      return obj[this.statusArea];
     }
   },
   components: {
