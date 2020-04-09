@@ -1,10 +1,51 @@
 <template>
-  <div class="task-list"></div>
+  <div class="task-list">
+    <div class="task" 
+      v-for="(todo, index) in todoList" 
+      :key="index"
+      :id="todo.id"
+      >
+        <div class="undone"
+          v-if="!todo.done"
+          >
+        </div>
+        <div class="done"
+          v-if="todo.done" 
+          >
+          <checkIcon />
+        </div>
+        <div class="task-content" 
+          :class="{ 'line-throught': todo.done }">
+          <p v-if="!todo.edit">{{ todo.task }}</p>
+          <input 
+            class="editTask"
+            type="text"
+            v-if="todo.edit"
+            :value="todo.task"
+          >
+        </div>
+        <div class="delete-icon">
+          <deleteIcon />
+        </div> 
+    </div>
+  </div>
 </template>
 
 <script>
+import checkIcon from '@/assets/img/check-icon.svg';
+import deleteIcon from '@/assets/img/delete-icon.svg';
+
 export default {
-  
+  props: {
+    todoList: {
+      type: Array
+    }
+  }, 
+  methods: {},
+  components: {
+    checkIcon,
+    deleteIcon
+  }
 }
 </script>
 
