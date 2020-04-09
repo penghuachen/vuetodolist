@@ -1,0 +1,61 @@
+<template>
+  <div class="add-task">
+    <div class="plus">
+      <plusIcon />
+    </div>
+    <div class="input-task">
+      <input type="text" placeholder="Add a to-do">
+    </div>
+  </div>
+</template>
+
+<script>
+import plusIcon from '@/assets/img/plus-icon.svg';
+
+export default {
+  components: {
+    plusIcon,
+  } 
+}
+</script>
+
+<style lang="scss" scoped>
+.add-task {
+  height: 60px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  .plus {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    border-radius: 999px;
+    background-color: rgba(65, 98, 246, 1);
+    text-align: center;
+    line-height: 37px;
+    color: rgba(255, 255, 255, 1);
+    svg {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+    }
+  }
+  .input-task {
+    width: 88%;
+    margin-left: 10px;
+    input[type="text"] {
+      width: 95%;
+      height: 35px;
+      border: none;
+      font-size: 20px;
+      padding: 5px;
+      border: 1px solid #dedede;
+      border-radius: 5px;
+      &::placeholder {
+        color: rgba(65, 98, 246, 1);
+        font-size: 20px;
+      }
+    }
+  }
+}
+</style>
