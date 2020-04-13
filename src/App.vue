@@ -23,7 +23,7 @@ import addTask from '@/components/add-task.vue';
 export default {
   data() {
     return {
-    todoList:  JSON.parse(localStorage.getItem('todos')) || [],
+    todoList: JSON.parse(localStorage.getItem('todos')) || [],
     statusArea: '全部'
     }
   },
