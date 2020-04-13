@@ -23,13 +23,14 @@ import addTask from '@/components/add-task.vue';
 export default {
   data() {
     return {
-    todoList: [],
+    todoList:  JSON.parse(localStorage.getItem('todos')) || [],
     statusArea: '全部'
     }
   },
   methods: {
     addTask(taskObj) {
       this.todoList.push(taskObj);
+      localStorage.setItem('todos', JSON.stringify(this.todoList));
     },
     updateTaskHandler(todo) {
       const isTarget = this.todoList.find(task => task.id = todo.id);
@@ -38,13 +39,16 @@ export default {
       todo.done = !todo.done;
       const index = this.todoList.indexOf(todo);
       this.todoList.splice(index, 1, todo);
+      localStorage.setItem('todos', JSON.stringify(this.todoList));
     },
     deleteTaskHandler(index) {
       this.todoList.splice(index, 1);
+      localStorage.setItem('todos', JSON.stringify(this.todoList));
     },
     editTaskHandler(index, newTaskContent) {
       this.todoList[index].edit = !this.todoList[index].edit;
       this.todoList[index].task = newTaskContent;
+      localStorage.setItem('todos', JSON.stringify(this.todoList));
     },
     updateStatusAreaHandler(area) {
       this.statusArea = area;
